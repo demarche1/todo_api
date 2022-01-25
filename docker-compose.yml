@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  database:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: todo_app_api
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'secret'
+      MYSQL_DATABASE: 'todo_api'
+
+    ports:
+      - '3306:3306'
