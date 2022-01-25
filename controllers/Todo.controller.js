@@ -34,8 +34,6 @@ class TodoController {
   store(req, resp) {
     const { title, completed } = req.body;
 
-    console.log("alou", title, completed);
-
     if (!title) {
       resp.status(400).send({
         message: "Title can not be empty!",
@@ -62,7 +60,6 @@ class TodoController {
     const todoReq = req.body;
 
     todo.update(todoReq, (err, data) => {
-      console.log("error:", err);
       if (err) {
         if (err.kind === "not_found") {
           res.status(400).send({
@@ -85,8 +82,6 @@ class TodoController {
 
   destroy(req, resp) {
     const todo = new Todo();
-
-    console.log("PARAMSSSSS", req.params.id);
 
     todo.delete(req.params.id, (err, data) => {
       console.log("error:", err);
