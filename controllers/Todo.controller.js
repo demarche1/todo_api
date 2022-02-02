@@ -83,8 +83,6 @@ class TodoController {
 
     const todoReq = req.body;
 
-    console.log("body", todoReq);
-
     todo.update(todoReq, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
