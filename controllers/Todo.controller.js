@@ -86,7 +86,6 @@ class TodoController {
     console.log("body", todoReq);
 
     todo.update(todoReq, (err, data) => {
-      console.log("error:", err);
       if (err) {
         if (err.kind === "not_found") {
           res.status(400).send({
