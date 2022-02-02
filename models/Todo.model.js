@@ -25,6 +25,26 @@ class Todo {
     });
   }
 
+  findById(id, result) {
+    let query = "SELECT * FROM todos";
+
+    if (id) {
+      query += ` WHERE id = "${id}"`;
+    }
+
+    sql.query(query, (err, results, _fields) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+
+      console.log("Todos: ", results);
+
+      result(null, results[0]);
+    });
+  }
+
   create(newTodo, result) {
     sql.query("INSERT INTO todos SET ?", newTodo, (err, results, _fields) => {
       if (err) {
@@ -41,8 +61,8 @@ class Todo {
 
   update(todo, result) {
     sql.query(
-      "UPDATE todos SET completed = ? WHERE id = ?",
-      [todo.completed, todo.id],
+      "UPDATE todos SET title = ?, completed = ? WHERE id = ?",
+      [todo.title, todo.completed, todo.id],
       (err, results, _fields) => {
         if (err) {
           console.log("error: ", err);
