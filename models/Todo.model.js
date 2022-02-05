@@ -61,8 +61,8 @@ class Todo {
 
   update(todo, result) {
     sql.query(
-      "UPDATE todos SET title = ?, completed = ? WHERE id = ?",
-      [todo.title, todo.completed, todo.id],
+      "UPDATE todos SET title = ?, description = ? ,completed = ? WHERE id = ?",
+      [todo.title, todo.description, todo.completed, todo.id],
       (err, results, _fields) => {
         if (err) {
           console.log("error: ", err);
@@ -96,7 +96,11 @@ class Todo {
       `create table if not exists todos(
                 id int primary key auto_increment,
                 title varchar(255) not null,
-                completed tinyint(1) not null default 0
+                description LONGTEXT,
+                completed tinyint(1) not null default 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                           ON UPDATE CURRENT_TIMESTAMP
             )`,
       (err, _results, _fields) => {
         if (err) {
